@@ -13,16 +13,11 @@ namespace BackendOwin
             // Start OWIN host 
             using (WebApp.Start<Startup>(url: baseAddress))
             {
-                // Create HttpCient and make a request to api/values 
-                HttpClient client = new HttpClient();
+                Console.WriteLine("Service is working... ");
+                Console.WriteLine("Press Enter to exit.");
 
-                var response = client.GetAsync(baseAddress + "api/values/1").Result;
-
-                Console.WriteLine(response);
-                Console.WriteLine(response.Content.ReadAsStringAsync().Result);
+                Console.ReadLine(); 
             }
-
-            Console.ReadLine(); 
         }
     }
 }

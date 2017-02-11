@@ -12,13 +12,6 @@ namespace BackendOwin
         public ValuesController()
         {
             _storage = new RedisStorage();
-            _storage.Save("1", "Hello world!");
-        }
-
-        // GET api/values/5 
-        public string Get(string id)
-        {
-            return _storage.Get(id);
         }
 
         // POST api/values/5
