@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using StackExchange.Redis;
 
 namespace BackendOwin
@@ -21,7 +22,7 @@ namespace BackendOwin
 
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() => 
             {
-                return ConnectionMultiplexer.Connect("localhost");
+                return ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["redisConnectionString"]);
             });
 
         public static ConnectionMultiplexer Connection
