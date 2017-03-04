@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VowelCalc", "VowelCalc.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsonantCalc", "..\ConsonantCalc\ConsonantCalc.csproj", "{AE330FB9-3F93-4CB6-956D-F53B9D012EBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestLineSelector", "..\BestLineSelector\BestLineSelector.csproj", "{6E8611A8-0100-427C-8224-407FD991EBD5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{AE330FB9-3F93-4CB6-956D-F53B9D012EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE330FB9-3F93-4CB6-956D-F53B9D012EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE330FB9-3F93-4CB6-956D-F53B9D012EBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E8611A8-0100-427C-8224-407FD991EBD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E8611A8-0100-427C-8224-407FD991EBD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E8611A8-0100-427C-8224-407FD991EBD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E8611A8-0100-427C-8224-407FD991EBD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

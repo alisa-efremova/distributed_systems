@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using MassTransit;
 using System.Configuration;
+using MassTransit;
 
 using PoemMessage;
 
-namespace ConsonantCalc
+namespace BestLineSelector
 {
     class Program
     {
@@ -26,7 +26,7 @@ namespace ConsonantCalc
             });
             busControl.Start();
 
-            Console.WriteLine("Consonant calc service is working... ");
+            Console.WriteLine("Best line selector service is working... ");
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
 
