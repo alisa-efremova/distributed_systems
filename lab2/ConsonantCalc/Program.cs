@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MassTransit;
 using Microsoft.Owin.Hosting;
 using System.Configuration;
-using System.Net.Http;
-using MassTransit;
-using System.Threading.Tasks;
 
 using Message;
 
-namespace VowelCalc
+namespace ConsonantCalc
 {
     class Program
     {
@@ -20,27 +22,23 @@ namespace VowelCalc
                     h.Username(ConfigurationManager.AppSettings["RabbitMQUsername"]);
                     h.Password(ConfigurationManager.AppSettings["RabbitMQPassword"]);
                 });
+
+                cfg.ReceiveEndpoint(host, ConfigurationManager.AppSettings["QueueName"], e =>
+                {
+                    e.Consumer<MessageConsumer>();
+                });
             });
             busControl.Start();
 
             using (WebApp.Start<Startup>(url: ConfigurationManager.AppSettings["BaseAddress"]))
             {
-                Console.WriteLine("Vowel calc service is working... ");
+                Console.WriteLine("Consonant calc service is working... ");
                 Console.WriteLine("Press Enter to exit.");
+                Console.ReadLine();
 
-                while (true)
-                {
-                    string input = Console.ReadLine();
-                    busControl.Publish<VowelsCalculated>(new 
-                    { 
-                        CorrId = "id",
-                        Text = input,
-                        VowelCounts = VowelCalculator.GetVowelCountPerLine(input)
-                    });
-                }
-                
                 busControl.Stop();
             }
+
         }
     }
 }
