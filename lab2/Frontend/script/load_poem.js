@@ -4,8 +4,8 @@ $(document).ready(function(){
 });
 
 var poem = "";
-const maxRetryCount = 10;
-const delayMs = 1000;
+const maxRetryCount = 50;
+const delayMs = 500;
 var currentRetryCount = 0;
 
 function getPoem(corrId) {
