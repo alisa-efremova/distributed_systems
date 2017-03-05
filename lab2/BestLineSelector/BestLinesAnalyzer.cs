@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading;
 
 namespace BestLineSelector
 {
@@ -9,21 +10,28 @@ namespace BestLineSelector
 
         static public string ExtractBestLines(string text, int[] vowelsCount, int[] consonantCount)
         {
+            Thread.Sleep(1000);
             if (text == null || text == string.Empty)
             {
                 return text;
             }
 
             double ratio = GetOptimalVowelsToConsonantsRatio();
+            Console.WriteLine("Expected ratio:" + ratio);
 
             string[] lines = text.Split('\n');
             string result = "";
 
             for (int i = 0; i < lines.Length; i++)
             {
-                if (Math.Abs(vowelsCount[i]/consonantCount[i] - ratio) < _maxDifferenceAllowed)
+                if (consonantCount[i] != 0)
                 {
-                    result += lines[i] + '\n';
+                    double currentRatio = (double)vowelsCount[i]/(double)consonantCount[i];
+                    Console.WriteLine(i + ": " + currentRatio);
+                    if (Math.Abs(currentRatio - ratio) < _maxDifferenceAllowed)
+                    {
+                        result += lines[i] + '\n';
+                    }
                 }
             }
 
@@ -40,7 +48,7 @@ namespace BestLineSelector
 
             int vowels = Int32.Parse(ratio[0]);
             int consonants = Int32.Parse(ratio[1]);
-            return vowels/consonants;
+            return (double)vowels/(double)consonants;
         }
     }
 }

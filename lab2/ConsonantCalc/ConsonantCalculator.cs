@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 namespace ConsonantCalc
 {
@@ -9,6 +10,7 @@ namespace ConsonantCalc
 
         public static int[] GetConsonantCountPerLine(string text)
         {
+            Thread.Sleep(1000);
             if (text == null || text == string.Empty)
             {
                 return new int[] { };
