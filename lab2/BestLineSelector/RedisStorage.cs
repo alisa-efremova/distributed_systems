@@ -29,16 +29,20 @@ namespace BestLineSelector
         private static RetryPolicy GetRetryPolicy()
         {
             return Policy
-                .Handle<RedisException>()
+                .Handle<Exception>()
                 .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
         }
 
         private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() => 
         {
+            CircuitBreaker breaker = new CircuitBreaker(2, TimeSpan.FromSeconds(15));
+
             return GetRetryPolicy().Execute(() =>
             {
-                Console.WriteLine("Try to connect to db");
-                return ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["RedisConnectionString"]);
+                return breaker.Execute(() => {
+                    Console.WriteLine("Try to connect to db");
+                    return ConnectionMultiplexer.Connect(ConfigurationManager.AppSettings["RedisConnectionString"]);
+                });
             });
         });
 
