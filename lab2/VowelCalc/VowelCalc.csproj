@@ -92,7 +92,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="PoemController.cs" />
     <Compile Include="VowelCalculator.cs" />
-    <Compile Include="Message\VowelsCalculated.cs" />
+    <Compile Include="Message\CalculateConsonants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

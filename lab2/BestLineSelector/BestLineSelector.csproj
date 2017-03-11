@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="BestLinesAnalyzer.cs" />
     <Compile Include="CircuitBreaker.cs" />
-    <Compile Include="Message\ConsonantsCalculated.cs" />
+    <Compile Include="Message\ExtractBestLines.cs" />
     <Compile Include="Message\MessageConsumer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

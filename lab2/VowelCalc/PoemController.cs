@@ -36,9 +36,11 @@ namespace VowelCalc
             return StatusCode(System.Net.HttpStatusCode.OK);
         }
 
-        private void HandlePoem(string id, string poem)
+        private async void HandlePoem(string id, string poem)
         {
-            _busControl.Publish<VowelsCalculated>(new
+            Uri sendEndpointUri = new Uri(string.Concat(ConfigurationManager.AppSettings["RabbitMQHost"], ConfigurationManager.AppSettings["ConsonantCalcQueueName"]));
+            var endpoint = await _busControl.GetSendEndpoint(sendEndpointUri);
+            await endpoint.Send<CalculateConsonants>(new
             {
                 CorrId = id,
                 Text = poem,

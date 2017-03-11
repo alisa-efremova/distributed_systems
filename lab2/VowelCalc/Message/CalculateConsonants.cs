@@ -1,10 +1,9 @@
 ﻿namespace PoemMessage
 {
-    public interface ConsonantsCalculated
+    public interface CalculateConsonants
     {
         string CorrId { get; }
         string Text { get; }
         int[] VowelCounts { get; }
-        int[] ConsonantCount { get; }
     }
 }

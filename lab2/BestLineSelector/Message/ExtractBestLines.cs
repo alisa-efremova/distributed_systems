@@ -1,6 +1,6 @@
 ﻿namespace PoemMessage
 {
-    public interface ConsonantsCalculated
+    public interface ExtractBestLines
     {
         string CorrId { get; }
         string Text { get; }

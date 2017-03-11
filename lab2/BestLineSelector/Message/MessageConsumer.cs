@@ -6,7 +6,7 @@ using PoemMessage;
 
 namespace BestLineSelector
 {
-    public class MessageConsumer : IConsumer<ConsonantsCalculated>
+    public class MessageConsumer : IConsumer<ExtractBestLines>
     {
         private readonly RedisStorage _storage;
 
@@ -15,7 +15,7 @@ namespace BestLineSelector
             _storage = new RedisStorage();
         }
 
-        public async Task Consume(ConsumeContext<ConsonantsCalculated> context)
+        public async Task Consume(ConsumeContext<ExtractBestLines> context)
         {
             string bestLines = BestLinesAnalyzer.ExtractBestLines(context.Message.Text, context.Message.VowelCounts, context.Message.ConsonantCount);
             _storage.Save(context.Message.CorrId, bestLines);

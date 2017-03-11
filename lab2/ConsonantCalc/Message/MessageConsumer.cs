@@ -1,15 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MassTransit;
+using System.Configuration;
 
 using PoemMessage;
 
 namespace ConsonantCalc
 {
-    public class MessageConsumer : IConsumer<VowelsCalculated>
+    public class MessageConsumer : IConsumer<CalculateConsonants>
     {
-        public async Task Consume(ConsumeContext<VowelsCalculated> context)
+        public async Task Consume(ConsumeContext<CalculateConsonants> context)
         {
-            await context.Publish<ConsonantsCalculated>(new
+            Uri sendEndpointUri = new Uri(string.Concat(ConfigurationManager.AppSettings["RabbitMQHost"], ConfigurationManager.AppSettings["BestLineSelectorQueueName"]));
+            var endpoint = await context.GetSendEndpoint(sendEndpointUri);
+            await endpoint.Send<ExtractBestLines>(new
             {
                 CorrId = context.Message.CorrId,
                 Text = context.Message.Text,
