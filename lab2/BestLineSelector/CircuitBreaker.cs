@@ -41,6 +41,7 @@ namespace BestLineSelector
 
         public TResult Execute<TResult>(Func<TResult> action)
         {
+            Console.WriteLine("--------------------");
             if (action == null)
             {
                 throw new ArgumentNullException("action");
@@ -61,6 +62,7 @@ namespace BestLineSelector
                 }
                 else
                 {
+                    Console.WriteLine("OpenCircuitExeption");
                     throw new OpenCircuitException();
                 }
             }
@@ -75,7 +77,7 @@ namespace BestLineSelector
             TResult result;
             try
             {
-                Console.WriteLine("Perform Action");
+                Console.WriteLine("Perform Action (func):");
                 result = action();
             }
             catch (Exception e)
@@ -94,6 +96,7 @@ namespace BestLineSelector
 
         public void Execute(Action action)
         {
+            Console.WriteLine("--------------------");
             if (action == null)
             {
                 throw new ArgumentNullException("action");
@@ -113,6 +116,7 @@ namespace BestLineSelector
                 }
                 else
                 {
+                    Console.WriteLine("OpenCircuitExeption");
                     throw new OpenCircuitException();
                 }
             }
@@ -126,7 +130,7 @@ namespace BestLineSelector
         {
             try
             {
-                Console.WriteLine("Perform Action");
+                Console.WriteLine("Perform Action (void):");
                 action();
             }
             catch (Exception e)
