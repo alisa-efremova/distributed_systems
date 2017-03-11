@@ -1,22 +1,24 @@
 <?php
 
-function getPoem($corrId)
+function getPoemInfo($corrId)
 {
-    try
+    $curl = new Curl\Curl();
+    $curl->get(RESULT_POEM_SERVICE_PATH . '/api/goodPoem/' . $corrId);
+    $curl->close();
+    if ($curl->error)
     {
-        $redis = new Predis\Client(REDIS_PATH);
-        return $redis->get($corrId);
+        return ["Error" => true];
     }
-    catch (Exception $e)
+    else
     {
-        return NULL;
+        return json_decode(json_decode($curl->response, true), true);
     }
 }
 
 function savePoem($corrId, $poem)
 {
     $curl = new Curl\Curl();
-    $curl->post(BACKEND_PATH . '/api/poem/' . $corrId, '=' . $poem);
+    $curl->post(POEM_BEAUTIFIER_SERVICE_PATH . '/api/poem/' . $corrId, '=' . $poem);
     $curl->close();
     return !$curl->error;
 }

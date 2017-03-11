@@ -3,29 +3,22 @@ $(document).ready(function(){
     getPoem(corrId);
 });
 
-var poem = "";
-const maxRetryCount = 50;
-const delayMs = 500;
-var currentRetryCount = 0;
-
 function getPoem(corrId) {
     $.ajax({
         url: "get_poem.php",
         data: { corr_id: corrId },
         type: "POST",
-        async: false,
         context: document.body
     }).done(function(responseJSON) {
         console.log(responseJSON);
         var response = jQuery.parseJSON(responseJSON);
-        poem = response.poem;
-        handleResponse(response.result, corrId);
+        handleResponse(response.result, response.poem);
     }).fail(function() {
-        handleResponse(false, corrId);
+        handleResponse(false, "");
     });
 }
 
-function handleResponse(result, corrId)
+function handleResponse(result, poem)
 {
     if (result)
     {
@@ -34,16 +27,8 @@ function handleResponse(result, corrId)
     }
     else
     {
-        currentRetryCount++;
-        if (currentRetryCount < maxRetryCount)
-        {
-            setTimeout(function() {getPoem(corrId)}, delayMs);
-        }
-        else
-        {
-            $("#loading").hide();
-            $("#poem_error").html("Timeout expired. Unable to get poem.");
-        }
+        $("#loading").hide();
+        $("#poem_error").html("Timeout expired. Unable to get poem.");
     }
 }
 
