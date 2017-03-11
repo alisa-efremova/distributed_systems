@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MassTransit;
+using System.Runtime.Caching;
 
 using PoemMessage;
 
@@ -26,6 +27,12 @@ namespace GoodPoem
                     e.Handler<PoemFilteringCompleted>(context =>
                     {
                         Console.WriteLine("Poem filtering completed");
+
+                        var item = new CacheItem(context.Message.CorrId, context.Message.Poem);
+                        CacheItemPolicy policy = new CacheItemPolicy();
+                        policy.SlidingExpiration = TimeSpan.FromMinutes(5);
+                        MemoryCache.Default.AddOrGetExisting(context.Message.CorrId, context.Message.Poem, policy);
+
                         return Task.FromResult(1);
                     });
                 });
