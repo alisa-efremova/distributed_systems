@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsonantCalc", "..\Consona
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestLineSelector", "..\BestLineSelector\BestLineSelector.csproj", "{6E8611A8-0100-427C-8224-407FD991EBD5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoemStats", "..\PoemStats\PoemStats.csproj", "{0633EC72-8653-421B-81F4-17359AFF180A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodPoem", "..\GoodPoem\GoodPoem.csproj", "{650BA4B6-00D8-4568-A681-17A017D9C8CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{6E8611A8-0100-427C-8224-407FD991EBD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E8611A8-0100-427C-8224-407FD991EBD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E8611A8-0100-427C-8224-407FD991EBD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0633EC72-8653-421B-81F4-17359AFF180A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0633EC72-8653-421B-81F4-17359AFF180A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0633EC72-8653-421B-81F4-17359AFF180A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0633EC72-8653-421B-81F4-17359AFF180A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{650BA4B6-00D8-4568-A681-17A017D9C8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{650BA4B6-00D8-4568-A681-17A017D9C8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{650BA4B6-00D8-4568-A681-17A017D9C8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{650BA4B6-00D8-4568-A681-17A017D9C8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

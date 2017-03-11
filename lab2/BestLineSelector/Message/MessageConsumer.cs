@@ -18,6 +18,11 @@ namespace BestLineSelector
         public async Task Consume(ConsumeContext<ExtractBestLines> context)
         {
             string bestLines = BestLinesAnalyzer.ExtractBestLines(context.Message.Text, context.Message.VowelCounts, context.Message.ConsonantCount);
+            await context.Publish<PoemFilteringCompleted>(new
+            {
+                CorrId = context.Message.CorrId,
+                Poem = bestLines
+            });
             _storage.Save(context.Message.CorrId, bestLines);
             await Task.FromResult(1);
         }
