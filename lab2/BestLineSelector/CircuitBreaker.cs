@@ -39,6 +39,15 @@ namespace BestLineSelector
             _timeout = timeout;
         }
 
+        public void Execute(Action action)
+        {
+            Execute(() =>
+            {
+                action();
+                return 0;
+            });
+        }
+
         public TResult Execute<TResult>(Func<TResult> action)
         {
             Console.WriteLine("--------------------");
@@ -62,7 +71,7 @@ namespace BestLineSelector
                 }
                 else
                 {
-                    Console.WriteLine("OpenCircuitExeption");
+                    Console.WriteLine("OpenCircuitExeption at " + DateTime.UtcNow.ToString());
                     throw new OpenCircuitException();
                 }
             }
@@ -77,7 +86,6 @@ namespace BestLineSelector
             TResult result;
             try
             {
-                Console.WriteLine("Perform Action (func):");
                 result = action();
             }
             catch (Exception e)
@@ -94,70 +102,16 @@ namespace BestLineSelector
             return result;
         }
 
-        public void Execute(Action action)
-        {
-            Console.WriteLine("--------------------");
-            if (action == null)
-            {
-                throw new ArgumentNullException("action");
-            }
-
-            if (_state == CircuitState.Closed)
-            {
-                PerformAction(action);
-            }
-            else if (_state == CircuitState.Open)
-            {
-                bool timeoutExpired = DateTime.UtcNow.Ticks >= _blockedTill;
-                if (timeoutExpired)
-                {
-                    _state = CircuitState.HalfOpen;
-                    PerformAction(action);
-                }
-                else
-                {
-                    Console.WriteLine("OpenCircuitExeption");
-                    throw new OpenCircuitException();
-                }
-            }
-            else // half-open
-            {
-                PerformAction(action);
-            }
-        }
-
-        void PerformAction(Action action)
-        {
-            try
-            {
-                Console.WriteLine("Perform Action (void):");
-                action();
-            }
-            catch (Exception e)
-            {
-                _currentFailureCount++;
-                Console.WriteLine("Failure #" + _currentFailureCount.ToString());
-                if (_currentFailureCount >= _maxFailureCount)
-                {
-                    OpenBreaker();
-                }
-                throw e;
-            }
-            CloseBreaker();
-        }
-
         void OpenBreaker()
         {
-            Console.WriteLine("OpenBreaker");
             _state = CircuitState.Open;
             _blockedTill = (DateTime.UtcNow + _timeout).Ticks;
-            Console.WriteLine("now: " + DateTime.UtcNow.ToString());
-            Console.WriteLine("+ timeout: " + (DateTime.UtcNow + _timeout).ToString());
+            Console.WriteLine("Opened till: " + (DateTime.UtcNow + _timeout).ToString());
         }
 
         void CloseBreaker()
         {
-            Console.WriteLine("CloseBreaker");
+            Console.WriteLine("Close breaker");
             _state = CircuitState.Closed;
             _currentFailureCount = 0;
             _blockedTill = DateTime.MinValue.Ticks;
