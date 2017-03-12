@@ -27,3 +27,13 @@ function buildPoemResultLayout($corrId)
     ];
     echo parseTemplate($templatePath, $vars);
 }
+
+function buildStatsLayout($goodLinesPercent, $message)
+{
+    $templatePath = TEMPLATE_PATH . 'stats.tpl';
+    $vars = [
+        'GOOD_LINES'   => $goodLinesPercent,
+        'MESSAGE'=> $message
+    ];
+    echo parseTemplate($templatePath, $vars);
+}

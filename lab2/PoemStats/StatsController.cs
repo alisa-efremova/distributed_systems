@@ -7,11 +7,12 @@ using System.Web.Http;
 
 namespace PoemStats
 {
-    class StatsController : ApiController
+    public class StatsController : ApiController
     {
-        // GET api/stats/corrId
-        public void Get(string corrId)
+        // GET api/stats/
+        public double Get()
         {
+            return Stats.GetInstance().GetGoodLinesPercent();
         } 
     }
 }

@@ -22,3 +22,18 @@ function savePoem($corrId, $poem)
     $curl->close();
     return !$curl->error;
 }
+
+function getStats()
+{
+    $curl = new Curl\Curl();
+    $curl->get(STATS_SERVICE_PATH . '/api/stats');
+    $curl->close();
+    if ($curl->error)
+    {
+        return NULL;
+    }
+    else
+    {
+        return json_decode(json_decode($curl->response, true), true);
+    }
+}

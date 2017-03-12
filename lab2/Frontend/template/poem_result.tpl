@@ -13,5 +13,7 @@
         <img id="loading" src="/image/loading_spinner.gif" width="100px" height="100px" />
         <p id="poem"></p>
         <p id="poem_error" class="error"></p>
+        <br>
+        <p><a href="/stats.php">See stats >></a></p>
     </body>
 </html>
