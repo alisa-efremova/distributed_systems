@@ -2,10 +2,7 @@
 using Microsoft.Owin.Hosting;
 using System.Configuration;
 using System.Net.Http;
-using System.Threading.Tasks;
 using MassTransit;
-
-using PoemMessage;
 
 namespace PoemStats
 {
@@ -23,19 +20,9 @@ namespace PoemStats
 
                 cfg.ReceiveEndpoint(host, ConfigurationManager.AppSettings["QueueName"], e =>
                 {
-                    e.Handler<PoemFilteringStarted>(context =>
-                    {
-                        Console.WriteLine("Poem filtering started");
-                        return Task.FromResult(1);
-                    });
-
-                    e.Handler<PoemFilteringCompleted>(context =>
-                    {
-                        Console.WriteLine("Poem filtering completed");
-                        return Task.FromResult(1);
-                    });
+                    e.Consumer<StartMessageConsumer>();
+                    e.Consumer<CompleteMessageConsumer>();
                 });
-
             });
             busControl.Start();
 

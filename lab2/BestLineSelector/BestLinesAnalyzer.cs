@@ -6,7 +6,7 @@ namespace BestLineSelector
 {
     static class BestLinesAnalyzer
     {
-        const double _maxDifferenceAllowed = 0.0001;
+        const double _maxDifferenceAllowed = 0.1;
 
         static public string ExtractBestLines(string text, int[] vowelsCount, int[] consonantCount)
         {
