@@ -7,7 +7,7 @@ if (isPost())
     $poemInfo = getPoemInfo($corrId);
     $result = [
         'result' => !$poemInfo['Error'],
-        'poem' => $poemInfo['Poem']
+        'poem' => isset($poemInfo['Poem']) ? $poemInfo['Poem'] : ""
     ];
     echo json_encode($result);
 }

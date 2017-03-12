@@ -4,10 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Runtime.Caching;
 using Newtonsoft.Json;
-using Polly;
-using Polly.Retry;
 
 namespace GoodPoem
 {
@@ -17,19 +14,13 @@ namespace GoodPoem
         public bool Error { get; set; }
     }
 
-    class PoemNotFoundException : SystemException { }
-
     public class GoodPoemController : ApiController
     {
-        const int _retryCount = 5;
-        const int _initialRetryTimeoutSec = 2;
-        Policy _policy;
+        private readonly Storage _storage;
 
         public GoodPoemController()
         {
-            _policy = Policy
-                .Handle<Exception>()
-                .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(_initialRetryTimeoutSec, retryAttempt)));
+            _storage = new Storage();
         }
 
         // GET api/goodpoem/corrId
@@ -42,7 +33,7 @@ namespace GoodPoem
             {
                 Console.WriteLine("-----------------");
                 Console.WriteLine("Try get result");
-                string poem = GetPoem(id);
+                string poem = _storage.Get(id);
                 Console.WriteLine("Success");
                 response.Error = false;
                 response.Poem = poem;
@@ -55,20 +46,5 @@ namespace GoodPoem
             }
             return JsonConvert.SerializeObject(response);
         } 
-
-        string GetPoem(string corrId)
-        {
-            return _policy.Execute(() =>
-            {
-                Console.WriteLine("Request poem");
-                var poem = MemoryCache.Default.Get(corrId);
-                if (poem == null)
-                {
-                    Console.WriteLine("Throw exception");
-                    throw new PoemNotFoundException();
-                }
-                return (string)poem;
-            });
-        }
     }
 }

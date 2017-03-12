@@ -28,7 +28,7 @@ function handleResponse(result, poem)
     else
     {
         $("#loading").hide();
-        $("#poem_error").html("Timeout expired. Unable to get poem.");
+        $("#poem_error").html("Unable to get poem.");
     }
 }
 

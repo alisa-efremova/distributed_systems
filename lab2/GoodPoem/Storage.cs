@@ -3,20 +3,34 @@ using System.Configuration;
 using StackExchange.Redis;
 using Polly;
 using Polly.Retry;
+using System.Runtime.Caching;
 
-namespace BestLineSelector
+namespace GoodPoem
 {
-    class RedisStorage
+    class ValueNotFoundException : SystemException { }
+
+    class Storage
     {
         const int _retryCount = 5;
         const int _initialRetryTimeoutSec = 2;
-        const int _maxFailureCountBeforeBreaking = 2;
-        static TimeSpan _breakerTimeout = TimeSpan.FromSeconds(15);
+        const int _maxFailureCountBeforeBreaking = 3;
+        static TimeSpan _breakerTimeout = TimeSpan.FromSeconds(10);
+        CacheItemPolicy _cachePolicy;
+        TimeSpan _cacheSlidingExpiration =TimeSpan.FromMinutes(5);
+
+        public Storage()
+        {
+            _cachePolicy = new CacheItemPolicy();
+            _cachePolicy.SlidingExpiration = _cacheSlidingExpiration;
+        }
 
         public void Save(string id, string value)
         {
             GetRetryPolicy().Execute(() =>
             {
+                Console.WriteLine("Save to cache");
+                MemoryCache.Default.AddOrGetExisting(id, value, _cachePolicy);
+
                 Breaker.Execute(() =>
                 {
                     Console.WriteLine("Try save to db");
@@ -27,11 +41,32 @@ namespace BestLineSelector
 
         public string Get(string id)
         {
-            return GetRetryPolicy().Execute(() => 
+            var value = MemoryCache.Default.Get(id);
+            if (value != null)
+            {
+                Console.WriteLine("Found poem in cache");
+                return (string)value;
+            }
+            else
+            {
+                return GetFromDB(id);
+            }
+        }
+
+        private string GetFromDB(string id)
+        {
+            return GetRetryPolicy().Execute(() =>
             {
                 return Breaker.Execute(() =>
                 {
-                    return Connection.GetDatabase().StringGet(id);
+                    Console.WriteLine("Request poem");
+                    var value = Connection.GetDatabase().StringGet(id);
+                    if (value.IsNull)
+                    {
+                        Console.WriteLine("Throw exception");
+                        throw new ValueNotFoundException();
+                    }
+                    return value;
                 });
             });
         }

@@ -14,6 +14,7 @@ namespace GoodPoem
     {
         static void Main()
         {
+            var storage = new Storage();
             var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
                 var host = cfg.Host(new Uri(ConfigurationManager.AppSettings["RabbitMQHost"]), h =>
@@ -27,12 +28,7 @@ namespace GoodPoem
                     e.Handler<PoemFilteringCompleted>(context =>
                     {
                         Console.WriteLine("Poem filtering completed");
-
-                        var item = new CacheItem(context.Message.CorrId, context.Message.Poem);
-                        CacheItemPolicy policy = new CacheItemPolicy();
-                        policy.SlidingExpiration = TimeSpan.FromMinutes(5);
-                        MemoryCache.Default.AddOrGetExisting(context.Message.CorrId, context.Message.Poem, policy);
-
+                        storage.Save(context.Message.CorrId, context.Message.Poem);
                         return Task.FromResult(1);
                     });
                 });
