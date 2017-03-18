@@ -9,11 +9,29 @@ namespace PoemStats
 {
     public class Stats
     {
+        /*private class ThreadSafeStatsData
+        {
+
+            int _sourceLinesCount = 0;
+            int _goodLinesCount = 0;
+
+            public void Store(int val)
+            {
+                lock(){
+
+                }
+            }
+        }
+
+        private static readonly ThreadSafeStatsData _statsData = new ThreadSafeStatsData();*/
+
         private static readonly Stats instance = new Stats();
+
         int _sourceLinesCount = 0;
         int _goodLinesCount = 0;
+        
         CacheItemPolicy _cachePolicy;
-        TimeSpan _cacheSlidingExpiration = TimeSpan.FromMinutes(5);
+        static readonly TimeSpan _cacheSlidingExpiration = TimeSpan.FromMinutes(5);
 
         private Stats()
         {

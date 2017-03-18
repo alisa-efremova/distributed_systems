@@ -39,9 +39,10 @@ namespace VowelCalc
 
         private async void HandlePoem(string id, string poem)
         {
+            var poemLines = poem.Split('\n');
             await _busControl.Publish<PoemFilteringStarted>(new {
                 CorrId = id,
-                Poem = poem
+                Poem = poemLines
             });
             
             Uri sendEndpointUri = new Uri(string.Concat(ConfigurationManager.AppSettings["RabbitMQHost"], ConfigurationManager.AppSettings["ConsonantCalcQueueName"]));
@@ -49,8 +50,8 @@ namespace VowelCalc
             await endpoint.Send<CalculateConsonants>(new
             {
                 CorrId = id,
-                Text = poem,
-                VowelCounts = VowelCalculator.GetVowelCountPerLine(poem)
+                Text = poemLines,
+                VowelCounts = VowelCalculator.GetVowelCountPerLine(poemLines)
             });
         }
     }

@@ -28,7 +28,7 @@ namespace GoodPoem
                     e.Handler<PoemFilteringCompleted>(context =>
                     {
                         Console.WriteLine("Poem filtering completed");
-                        storage.Save(context.Message.CorrId, context.Message.Poem);
+                        storage.Save(context.Message.CorrId, string.Join("\n", context.Message.Poem));
                         return Task.FromResult(1);
                     });
                 });

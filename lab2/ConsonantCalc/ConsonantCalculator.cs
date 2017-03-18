@@ -8,20 +8,18 @@ namespace ConsonantCalc
     {
         const string _consonants = "bcdfghjklmnpqrstvwxz";
 
-        public static int[] GetConsonantCountPerLine(string text)
+        public static int[] GetConsonantCountPerLine(string[] textLines)
         {
             Thread.Sleep(1000);
-            if (text == null || text == string.Empty)
+            if (textLines == null || textLines.Length == 0)
             {
                 return new int[] { };
             }
 
-            string[] lines = text.Split('\n');
-            int[] consonantCounts = new int[lines.Length];
-
-            for (int i = 0; i < lines.Length; i++)
+            int[] consonantCounts = new int[textLines.Length];
+            for (int i = 0; i < textLines.Length; i++)
             {
-                consonantCounts[i] = lines[i].Count(c => _consonants.Contains(Char.ToLower(c)));
+                consonantCounts[i] = textLines[i].Count(c => _consonants.Contains(Char.ToLower(c)));
             }
 
             return consonantCounts;

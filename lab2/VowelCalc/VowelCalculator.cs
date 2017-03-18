@@ -8,20 +8,19 @@ namespace VowelCalc
     {
         const string _vowels = "aeiouy";
 
-        public static int[] GetVowelCountPerLine(string text)
+        public static int[] GetVowelCountPerLine(string[] textLines)
         {
             Thread.Sleep(1000);
-            if (text == null || text == string.Empty)
+            if (textLines == null)
             {
                 return new int[] {};
             }
 
-            string[] lines = text.Split('\n');
-            int[] vowelCounts = new int[lines.Length];
+            int[] vowelCounts = new int[textLines.Length];
 
-            for(int i = 0; i < lines.Length; i++)
+            for (int i = 0; i < textLines.Length; i++)
             {
-                vowelCounts[i] = lines[i].Count(c => _vowels.Contains(Char.ToLower(c)));
+                vowelCounts[i] = textLines[i].Count(c => _vowels.Contains(Char.ToLower(c)));
             }
 
             return vowelCounts;
