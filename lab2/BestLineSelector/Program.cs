@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using System.Configuration;
 using MassTransit;
 
-using PoemMessage;
-
 namespace BestLineSelector
 {
     class Program

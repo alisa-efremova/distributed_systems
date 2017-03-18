@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MassTransit;
 using System.Runtime.Caching;
 
-using PoemMessage;
+using EventContract;
 
 namespace GoodPoem
 {

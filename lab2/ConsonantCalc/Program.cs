@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using MassTransit;
 using System.Configuration;
 
-using PoemMessage;
-
 namespace ConsonantCalc
 {
     class Program

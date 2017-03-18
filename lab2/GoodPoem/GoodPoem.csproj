@@ -108,7 +108,6 @@
   <ItemGroup>
     <Compile Include="CircuitBreaker.cs" />
     <Compile Include="GoodPoemController.cs" />
-    <Compile Include="Message\PoemFilteringCompleted.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -117,6 +116,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EventContract\EventContract.csproj">
+      <Project>{1648d0ec-054f-4494-a821-e8ce479974b1}</Project>
+      <Name>EventContract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

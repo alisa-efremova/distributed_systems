@@ -97,10 +97,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Message\CompleteMessageConsumer.cs" />
-    <Compile Include="Message\PoemFilteringCompleted.cs" />
-    <Compile Include="Message\PoemFilteringStarted.cs" />
-    <Compile Include="Message\StartMessageConsumer.cs" />
+    <Compile Include="CompleteMessageConsumer.cs" />
+    <Compile Include="StartMessageConsumer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -111,7 +109,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EventContract\EventContract.csproj">
+      <Project>{1648d0ec-054f-4494-a821-e8ce479974b1}</Project>
+      <Name>EventContract</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -67,15 +67,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BestLinesAnalyzer.cs" />
-    <Compile Include="Message\ExtractBestLines.cs" />
-    <Compile Include="Message\MessageConsumer.cs" />
-    <Compile Include="Message\PoemFilteringCompleted.cs" />
+    <Compile Include="MessageConsumer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CommandContract\CommandContract.csproj">
+      <Project>{6a6fb50c-f68f-4974-830b-5c5dc8362c20}</Project>
+      <Name>CommandContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventContract\EventContract.csproj">
+      <Project>{1648d0ec-054f-4494-a821-e8ce479974b1}</Project>
+      <Name>EventContract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

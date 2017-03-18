@@ -4,7 +4,8 @@ using System.Configuration;
 using System.Threading.Tasks;
 using MassTransit;
 
-using PoemMessage;
+using CommandContract;
+using EventContract;
 
 namespace VowelCalc
 {

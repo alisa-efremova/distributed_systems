@@ -19,7 +19,6 @@ namespace GoodPoem
     {
         int _maxFailureCount;
         TimeSpan _timeout;
-
         int _currentFailureCount = 0;
         CircuitState _state = CircuitState.Closed;
         long _blockedTill = DateTime.MinValue.Ticks;
@@ -81,7 +80,7 @@ namespace GoodPoem
             }
         }
 
-        public TResult PerformAction<TResult>(Func<TResult> action)
+        TResult PerformAction<TResult>(Func<TResult> action)
         {
             TResult result;
             try

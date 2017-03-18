@@ -5,8 +5,6 @@ using System.Net.Http;
 using MassTransit;
 using System.Threading.Tasks;
 
-using PoemMessage;
-
 namespace VowelCalc
 {
     class Program

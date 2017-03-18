@@ -13,10 +13,12 @@ namespace GoodPoem
     {
         const int _retryCount = 5;
         const int _initialRetryTimeoutSec = 2;
+
         const int _maxFailureCountBeforeBreaking = 3;
-        static TimeSpan _breakerTimeout = TimeSpan.FromSeconds(10);
+        static readonly TimeSpan _breakerTimeout = TimeSpan.FromSeconds(10);
+
         CacheItemPolicy _cachePolicy;
-        TimeSpan _cacheSlidingExpiration =TimeSpan.FromMinutes(5);
+        static readonly TimeSpan _cacheSlidingExpiration = TimeSpan.FromMinutes(5);
 
         public Storage()
         {
