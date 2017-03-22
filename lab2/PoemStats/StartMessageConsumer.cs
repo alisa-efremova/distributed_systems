@@ -12,10 +12,17 @@ namespace PoemStats
 {
     class StartMessageConsumer : IConsumer<PoemFilteringStarted>
     {
+        private readonly Stats _stats;
+
+        public StartMessageConsumer()
+        {
+            _stats = new Stats();
+        }
+
         public async Task Consume(ConsumeContext<PoemFilteringStarted> context)
         {
             int linesCount = context.Message.Poem.Length;
-            Stats.GetInstance().SaveSourceLinesCount(linesCount, context.Message.CorrId);
+            _stats.SaveSourceLinesCount(linesCount, context.Message.CorrId);
 
             Console.WriteLine("---------------------");
             Console.WriteLine("All lines: " + linesCount);

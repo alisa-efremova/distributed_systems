@@ -9,31 +9,32 @@ namespace PoemStats
 {
     public class Stats
     {
-        /*private class ThreadSafeStatsData
+        private class ThreadSafeStatsData
         {
-
-            int _sourceLinesCount = 0;
-            int _goodLinesCount = 0;
+            int _val = 0;
+            private Object thisLock = new Object();
 
             public void Store(int val)
             {
-                lock(){
-
+                lock (thisLock)
+                {
+                    _val = val;
                 }
+            }
+
+            public int Get()
+            {
+                return _val;
             }
         }
 
-        private static readonly ThreadSafeStatsData _statsData = new ThreadSafeStatsData();*/
+        private static readonly ThreadSafeStatsData _sourceLinesCount = new ThreadSafeStatsData();
+        private static readonly ThreadSafeStatsData _goodLinesCount = new ThreadSafeStatsData();
 
-        private static readonly Stats instance = new Stats();
-
-        int _sourceLinesCount = 0;
-        int _goodLinesCount = 0;
-        
         CacheItemPolicy _cachePolicy;
         static readonly TimeSpan _cacheSlidingExpiration = TimeSpan.FromMinutes(5);
 
-        private Stats()
+        public Stats()
         {
             _cachePolicy = new CacheItemPolicy();
             _cachePolicy.SlidingExpiration = _cacheSlidingExpiration;
@@ -41,9 +42,9 @@ namespace PoemStats
 
         public double GetGoodLinesPercent()
         {
-            if (_sourceLinesCount != 0)
+            if (_sourceLinesCount.Get() != 0)
             {
-                return (double)_goodLinesCount / (double)_sourceLinesCount;
+                return (double)_goodLinesCount.Get() / (double)_sourceLinesCount.Get();
             }
             else
             {
@@ -61,15 +62,12 @@ namespace PoemStats
             var value = MemoryCache.Default.Get(id);
             if (value != null)
             {
-                _sourceLinesCount += (int)value;
-                _goodLinesCount += linesCount;
+                int sourceLinesCount = _sourceLinesCount.Get();
+                int goodLinesCount = _goodLinesCount.Get();
+                _sourceLinesCount.Store(sourceLinesCount + (int)value);
+                _goodLinesCount.Store(goodLinesCount + linesCount);
                 MemoryCache.Default.Remove(id);
             }
-        }
-
-        public static Stats GetInstance()
-        {
-            return instance;
         }
     }
 }

@@ -9,10 +9,17 @@ namespace PoemStats
 {
     public class StatsController : ApiController
     {
+        private readonly Stats _stats;
+
+        public StatsController()
+        {
+            _stats = new Stats();
+        }
+
         // GET api/stats/
         public double Get()
         {
-            return Stats.GetInstance().GetGoodLinesPercent();
+            return _stats.GetGoodLinesPercent();
         } 
     }
 }

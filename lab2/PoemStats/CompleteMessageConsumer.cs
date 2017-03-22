@@ -12,13 +12,20 @@ namespace PoemStats
 {
     class CompleteMessageConsumer : IConsumer<PoemFilteringCompleted>
     {
+        private readonly Stats _stats;
+
+        public CompleteMessageConsumer()
+        {
+            _stats = new Stats();
+        }
+
         public async Task Consume(ConsumeContext<PoemFilteringCompleted> context)
         {
             int linesCount = context.Message.Poem.Length; // todo: check
-            Stats.GetInstance().SaveGoodLinesCount(linesCount, context.Message.CorrId);
+            _stats.SaveGoodLinesCount(linesCount, context.Message.CorrId);
 
             Console.WriteLine("Good lines: " + linesCount);
-            Console.WriteLine("Stats: " + Stats.GetInstance().GetGoodLinesPercent().ToString());
+            Console.WriteLine("Stats: " + _stats.GetGoodLinesPercent().ToString());
             await Task.FromResult(1);
         }
     }
