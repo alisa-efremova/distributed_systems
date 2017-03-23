@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoodPoem
+namespace DataAccess
 {
     public enum CircuitState
     {
@@ -13,7 +13,7 @@ namespace GoodPoem
         HalfOpen
     }
 
-    class OpenCircuitException : SystemException {}
+    class OpenCircuitException : SystemException { }
 
     class CircuitBreaker
     {

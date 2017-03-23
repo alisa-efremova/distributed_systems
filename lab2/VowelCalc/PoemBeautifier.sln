@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandContract", "..\Comma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventContract", "..\EventContract\EventContract.csproj", "{1648D0EC-054F-4494-A821-E8CE479974B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{1648D0EC-054F-4494-A821-E8CE479974B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1648D0EC-054F-4494-A821-E8CE479974B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1648D0EC-054F-4494-A821-E8CE479974B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
