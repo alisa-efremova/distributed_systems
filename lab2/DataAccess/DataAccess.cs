@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Collections.Generic;
 using StackExchange.Redis;
 using Polly;
 using Polly.Retry;
@@ -10,10 +11,22 @@ namespace DataAccess
 
     public class DataAccessLayer
     {
-        private static ConnectionMultiplexer[] _connections = new ConnectionMultiplexer[]
+        private static readonly ConnectionMultiplexer[] _connections = new ConnectionMultiplexer[]
         {
-            ConnectionMultiplexer.Connect("localhost")
+            ConnectionMultiplexer.Connect("localhost"),
+            ConnectionMultiplexer.Connect("localhost:7777"),
+            ConnectionMultiplexer.Connect("localhost:7770")
         };
+
+        private static readonly SortedDictionary<string, int> _userConnectionMap = new SortedDictionary<string, int>
+        {
+            { "user1", 0 },
+            { "user2", 1 },
+            { "user3", 1 },
+            { "user4", 2 },
+        };
+
+        private static SortedDictionary<string, string> _corrIdUserMap = new SortedDictionary<string, string>();
 
         const int _retryCount = 5;
         const int _initialRetryTimeoutSec = 2;
@@ -21,31 +34,30 @@ namespace DataAccess
         const int _maxFailureCountBeforeBreaking = 3;
         static readonly TimeSpan _breakerTimeout = TimeSpan.FromSeconds(10);
 
-        public void Save(string id, string value)
+        public void Save(string userId, string id, string value)
         {
+            int connectionId = GetConnectionIdByUserId(userId);
+            SaveUserCorrIdConnection(userId, id);
+          
             GetRetryPolicy().Execute(() =>
             {
                 Breaker.Execute(() =>
                 {
                     Console.WriteLine("Try save to db");
-                    _connections[0].GetDatabase().StringSet(id, value);
+                    _connections[connectionId].GetDatabase().StringSet(id, value);
                 });
             });
         }
 
         public string Get(string id)
         {
-            return GetFromDB(id);
-        }
-
-        private string GetFromDB(string id)
-        {
             return GetRetryPolicy().Execute(() =>
             {
                 return Breaker.Execute(() =>
                 {
                     Console.WriteLine("Request poem");
-                    var value = _connections[0].GetDatabase().StringGet(id);
+                    int connectionId = GetConnectionIdByCorrId(id);
+                    var value = _connections[connectionId].GetDatabase().StringGet(id);
                     if (value.IsNull)
                     {
                         Console.WriteLine("Throw exception");
@@ -54,6 +66,21 @@ namespace DataAccess
                     return value;
                 });
             });
+        }
+
+        private int GetConnectionIdByUserId(string userId)
+        {
+            return _userConnectionMap[userId];
+        }
+
+        private int GetConnectionIdByCorrId(string corrId) 
+        {
+            return GetConnectionIdByUserId(_corrIdUserMap[corrId]);
+        }
+
+        private void SaveUserCorrIdConnection(string userId, string CorrId)
+        {
+            _corrIdUserMap[CorrId] = userId;
         }
 
         private static RetryPolicy GetRetryPolicy()

@@ -20,16 +20,16 @@ namespace GoodPoem
             _cachePolicy.SlidingExpiration = _cacheSlidingExpiration;
         }
 
-        public void Save(string id, string value)
+        public void Save(string userId, string corrId, string value)
         {
             Console.WriteLine("Save to cache");
-            MemoryCache.Default.AddOrGetExisting(id, value, _cachePolicy);
-            _dataAccess.Save(id, value);
+            MemoryCache.Default.AddOrGetExisting(corrId, value, _cachePolicy);
+            _dataAccess.Save(userId, corrId, value);
         }
 
-        public string Get(string id)
+        public string Get(string corrId)
         {
-            var value = MemoryCache.Default.Get(id);
+            var value = MemoryCache.Default.Get(corrId);
             if (value != null)
             {
                 Console.WriteLine("Found poem in cache");
@@ -37,7 +37,7 @@ namespace GoodPoem
             }
             else
             {
-                return _dataAccess.Get(id);
+                return _dataAccess.Get(corrId);
             }
         }
     }

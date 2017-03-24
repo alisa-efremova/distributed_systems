@@ -15,6 +15,7 @@ namespace ConsonantCalc
             var endpoint = await context.GetSendEndpoint(sendEndpointUri);
             await endpoint.Send<ExtractBestLines>(new
             {
+                UserId = context.Message.UserId,
                 CorrId = context.Message.CorrId,
                 Text = context.Message.Text,
                 VowelCounts = context.Message.VowelCounts,

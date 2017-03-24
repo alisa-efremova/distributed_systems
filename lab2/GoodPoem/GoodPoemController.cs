@@ -26,7 +26,6 @@ namespace GoodPoem
         // GET api/goodpoem/corrId
         public string Get(string id)
         {
-            Console.WriteLine("Get string");
             GoodPoemResponse response = new GoodPoemResponse();
 
             try
