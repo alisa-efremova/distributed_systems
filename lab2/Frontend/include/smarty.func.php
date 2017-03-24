@@ -9,12 +9,14 @@ function parseTemplate($templateName, $vars)
     return $smarty->fetch($templateName);
 }
 
-function buildPoemFormLayout($poem, $message)
+function buildPoemFormLayout($poem, $message, $users, $selectedUser)
 {
     $templatePath = TEMPLATE_PATH . 'poem_form.tpl';
     $vars = [
         'POEM'   => $poem,
-        'MESSAGE'=> $message
+        'MESSAGE'=> $message,
+        'USERS' => $users,
+        'USER_ID' => $selectedUser
     ];
     echo parseTemplate($templatePath, $vars);
 }

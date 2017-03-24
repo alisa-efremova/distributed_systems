@@ -4,15 +4,22 @@ require_once 'include/common.inc.php';
 
 $poem    = "";
 $message = "";
+$selectedUser = "user1";
+$users = [
+    "user1" => "User 1",
+    "user2" => "User 2",
+    "user3" => "User 3",
+    "user4" => "User 4"
+];
 
 if (isPost())
 {
     $poem  = getPostParam(KEY_POEM_TEXT);
-
+    $selectedUser = getPostParam(KEY_USER_ID);
     if (!empty($poem))
     {
         $corrId = uniqid();
-        $isPoemSaved = savePoem($corrId, $poem);
+        $isPoemSaved = savePoem($selectedUser, $corrId, $poem);
 
         if ($isPoemSaved)
         {
@@ -29,4 +36,4 @@ if (isPost())
         $message = "Please enter anything to the form.";
     }
 }
-buildPoemFormLayout($poem, $message);
+buildPoemFormLayout($poem, $message, $users, $selectedUser);

@@ -10,5 +10,6 @@ const RESULT_POEM_SERVICE_PATH = 'http://localhost:9001';
 const STATS_SERVICE_PATH = 'http://localhost:9002';
 
 const KEY_POEM_TEXT = 'poemText';
+const KEY_USER_ID = 'userId';
 
 const PARAMETER_CORRID = 'corr_id';
