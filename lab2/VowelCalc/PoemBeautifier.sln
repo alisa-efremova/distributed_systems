@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoemStats", "..\PoemStats\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodPoem", "..\GoodPoem\GoodPoem.csproj", "{650BA4B6-00D8-4568-A681-17A017D9C8CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandContract", "..\CommandContract\CommandContract.csproj", "{6A6FB50C-F68F-4974-830B-5C5DC8362C20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoemFilterContract", "..\CommandContract\PoemFilterContract.csproj", "{6A6FB50C-F68F-4974-830B-5C5DC8362C20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventContract", "..\EventContract\EventContract.csproj", "{1648D0EC-054F-4494-A821-E8CE479974B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoemBeautifierContract", "..\EventContract\PoemBeautifierContract.csproj", "{1648D0EC-054F-4494-A821-E8CE479974B1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}"
 EndProject

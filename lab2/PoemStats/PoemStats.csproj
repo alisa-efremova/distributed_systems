@@ -110,9 +110,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EventContract\EventContract.csproj">
+    <ProjectReference Include="..\EventContract\PoemBeautifierContract.csproj">
       <Project>{1648d0ec-054f-4494-a821-e8ce479974b1}</Project>
-      <Name>EventContract</Name>
+      <Name>PoemBeautifierContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

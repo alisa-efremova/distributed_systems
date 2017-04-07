@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using MassTransit;
 using System.Configuration;
 
-using CommandContract;
+using PoemFilterContract;
 
 namespace ConsonantCalc
 {

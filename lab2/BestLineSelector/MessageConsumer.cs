@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using MassTransit;
 
-using CommandContract;
-using EventContract;
+using PoemFilterContract;
+using PoemBeautifierContract;
 
 namespace BestLineSelector
 {

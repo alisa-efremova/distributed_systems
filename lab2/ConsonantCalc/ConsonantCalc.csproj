@@ -72,9 +72,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CommandContract\CommandContract.csproj">
+    <ProjectReference Include="..\CommandContract\PoemFilterContract.csproj">
       <Project>{6a6fb50c-f68f-4974-830b-5c5dc8362c20}</Project>
-      <Name>CommandContract</Name>
+      <Name>PoemFilterContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

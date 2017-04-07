@@ -1,4 +1,4 @@
-﻿namespace CommandContract
+﻿namespace PoemFilterContract
 {
     public interface CalculateConsonants
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using MassTransit;
 
-using EventContract;
+using PoemBeautifierContract;
 
 namespace PoemStats
 {
@@ -21,7 +21,7 @@ namespace PoemStats
 
         public async Task Consume(ConsumeContext<PoemFilteringCompleted> context)
         {
-            int linesCount = context.Message.Poem.Length; // todo: check
+            int linesCount = context.Message.Poem.Length;
             _stats.SaveGoodLinesCount(linesCount, context.Message.CorrId);
 
             Console.WriteLine("Good lines: " + linesCount);

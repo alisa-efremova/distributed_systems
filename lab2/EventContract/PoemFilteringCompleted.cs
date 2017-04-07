@@ -1,4 +1,4 @@
-﻿namespace EventContract
+﻿namespace PoemBeautifierContract
 {
     public interface PoemFilteringCompleted
     {

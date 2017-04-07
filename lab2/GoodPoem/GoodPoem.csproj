@@ -69,8 +69,16 @@
       <HintPath>..\VowelCalc\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Polly, Version=5.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\VowelCalc\packages\Polly.5.0.6\lib\net45\Polly.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RabbitMQ.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\VowelCalc\packages\RabbitMQ.Client.4.1.1\lib\net451\RabbitMQ.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\VowelCalc\packages\StackExchange.Redis.1.2.1\lib\net45\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -98,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CurcuitBreaker.cs" />
     <Compile Include="GoodPoemController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,9 +122,9 @@
       <Project>{2fd3c029-6e76-4e59-a6d4-6100d12c6ca2}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EventContract\EventContract.csproj">
+    <ProjectReference Include="..\EventContract\PoemBeautifierContract.csproj">
       <Project>{1648d0ec-054f-4494-a821-e8ce479974b1}</Project>
-      <Name>EventContract</Name>
+      <Name>PoemBeautifierContract</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

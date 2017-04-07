@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using MassTransit;
 
-using EventContract;
+using PoemBeautifierContract;
 
 namespace PoemStats
 {
