@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoemBeautifierContract", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoemBeautifierManager", "..\PoemBeautifierManager\PoemBeautifierManager.csproj", "{611F49C1-9109-430A-98E1-A511BC56FE51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FD3C029-6E76-4E59-A6D4-6100D12C6CA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{611F49C1-9109-430A-98E1-A511BC56FE51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{611F49C1-9109-430A-98E1-A511BC56FE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{611F49C1-9109-430A-98E1-A511BC56FE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{611F49C1-9109-430A-98E1-A511BC56FE51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

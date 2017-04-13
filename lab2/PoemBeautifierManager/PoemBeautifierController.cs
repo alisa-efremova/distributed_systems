@@ -7,13 +7,13 @@ using MassTransit;
 using PoemFilterContract;
 using PoemBeautifierContract;
 
-namespace VowelCalc
+namespace PoemBeautifierManager
 {
-    public class PoemController : ApiController 
+    public class PoemBeautifierController : ApiController 
     {
         private readonly IBusControl _busControl;
 
-        public PoemController()
+        public PoemBeautifierController()
         {
             _busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
             {
@@ -26,7 +26,7 @@ namespace VowelCalc
             _busControl.Start();
         }
 
-        ~PoemController()
+        ~PoemBeautifierController()
         {
             _busControl.Stop();
         }
@@ -44,23 +44,13 @@ namespace VowelCalc
             return StatusCode(System.Net.HttpStatusCode.OK);
         }
 
-
         private async void HandlePostParams(ResourceQuery postParams)
         {
             var poemLines = postParams.Poem.Split('\n');
             await _busControl.Publish<PoemFilteringStarted>(new {
-                CorrId = postParams.CorrId,
-                Poem = poemLines
-            });
-            
-            Uri sendEndpointUri = new Uri(string.Concat(ConfigurationManager.AppSettings["RabbitMQHost"], ConfigurationManager.AppSettings["ConsonantCalcQueueName"]));
-            var endpoint = await _busControl.GetSendEndpoint(sendEndpointUri);
-            await endpoint.Send<CalculateConsonants>(new
-            {
                 UserId = postParams.UserId,
                 CorrId = postParams.CorrId,
-                Text = poemLines,
-                VowelCounts = VowelCalculator.GetVowelCountPerLine(poemLines)
+                Poem = poemLines
             });
         }
     }

@@ -23,7 +23,7 @@ function savePoem($userId, $corrId, $poem)
         'UserId' => $userId,
         'Poem' => $poem
     ]);
-    $ch = curl_init(POEM_BEAUTIFIER_SERVICE_PATH . '/api/poem');
+    $ch = curl_init(POEM_BEAUTIFIER_SERVICE_PATH . '/api/PoemBeautifier');
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -32,8 +32,9 @@ function savePoem($userId, $corrId, $poem)
             'Content-Length: ' . strlen($params))
     );
     curl_exec($ch);
+    $httpCode = curl_getinfo($ch,CURLINFO_HTTP_CODE);
     $curl->close();
-    return !$curl->error;
+    return $httpCode == 200;
 }
 
 function getStats()
