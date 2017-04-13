@@ -11,40 +11,42 @@ namespace PoemStats
     {
         private class ThreadSafeStatsData
         {
-            int _val = 0;
+            SortedDictionary<string, int> _map = new SortedDictionary<string, int> { };
             private Object thisLock = new Object();
 
-            public void Store(int val)
+            public void Store(int val, string corrId)
             {
                 lock (thisLock)
                 {
-                    _val = val;
+                    _map[corrId] = val;
                 }
             }
 
-            public int Get()
+            public int GetCount()
             {
-                return _val;
+                int sum = 0;
+                foreach (var val in _map.Values)
+                {
+                    sum += val;
+                }
+                return sum;
+            }
+
+            public bool Remove(string corrId)
+            {
+                return _map.Remove(corrId);
             }
         }
 
-        private static readonly ThreadSafeStatsData _sourceLinesCount = new ThreadSafeStatsData();
-        private static readonly ThreadSafeStatsData _goodLinesCount = new ThreadSafeStatsData();
-
-        CacheItemPolicy _cachePolicy;
-        static readonly TimeSpan _cacheSlidingExpiration = TimeSpan.FromMinutes(5);
-
-        public Stats()
-        {
-            _cachePolicy = new CacheItemPolicy();
-            _cachePolicy.SlidingExpiration = _cacheSlidingExpiration;
-        }
+        private static readonly ThreadSafeStatsData _sourceLines = new ThreadSafeStatsData();
+        private static readonly ThreadSafeStatsData _goodLines = new ThreadSafeStatsData();
 
         public double GetGoodLinesPercent()
         {
-            if (_sourceLinesCount.Get() != 0)
+            int sourceLineCount = _sourceLines.GetCount();
+            if (sourceLineCount != 0)
             {
-                return (double)_goodLinesCount.Get() / (double)_sourceLinesCount.Get();
+                return (double)_goodLines.GetCount() / (double)sourceLineCount;
             }
             else
             {
@@ -54,20 +56,18 @@ namespace PoemStats
 
         public void SaveSourceLinesCount(int linesCount, string id)
         {
-            MemoryCache.Default.AddOrGetExisting(id, linesCount, _cachePolicy);
+            _sourceLines.Store(linesCount, id);
         }
 
         public void SaveGoodLinesCount(int linesCount, string id)
         {
-            var value = MemoryCache.Default.Get(id);
-            if (value != null)
-            {
-                int sourceLinesCount = _sourceLinesCount.Get();
-                int goodLinesCount = _goodLinesCount.Get();
-                _sourceLinesCount.Store(sourceLinesCount + (int)value);
-                _goodLinesCount.Store(goodLinesCount + linesCount);
-                MemoryCache.Default.Remove(id);
-            }
+            _goodLines.Store(linesCount, id);
+        }
+
+        public void RemoveStats(string id)
+        {
+            _sourceLines.Remove(id);
+            _goodLines.Remove(id);
         }
     }
 }
