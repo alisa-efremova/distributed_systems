@@ -22,6 +22,7 @@ namespace PoemStats
                 {
                     e.Consumer<StartMessageConsumer>();
                     e.Consumer<CompleteMessageConsumer>();
+                    e.Consumer<RejectPoemMessageConsumer>();
                 });
             });
             busControl.Start();

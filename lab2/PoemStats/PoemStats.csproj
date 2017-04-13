@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompleteMessageConsumer.cs" />
+    <Compile Include="RejectPoemMessageConsumer.cs" />
     <Compile Include="StartMessageConsumer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
