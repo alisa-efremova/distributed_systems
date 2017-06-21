@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PoemFilteringCompleted.cs" />
-    <Compile Include="PoemFilteringStarted.cs" />
+    <Compile Include="ProceedBeautifiedPoem.cs" />
+    <Compile Include="ProceedOriginalPoem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RejectPoem.cs" />
   </ItemGroup>

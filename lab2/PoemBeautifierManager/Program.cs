@@ -22,6 +22,7 @@ namespace PoemBeautifierManager
 
                 cfg.ReceiveEndpoint(host, ConfigurationManager.AppSettings["QueueName"], e =>
                 {
+                    e.Consumer<ProceedBeautifiedPoemConsumer>();
                     e.Consumer<RejectPoemMessageConsumer>();
                 });
 

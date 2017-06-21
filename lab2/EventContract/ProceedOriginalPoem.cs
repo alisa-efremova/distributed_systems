@@ -1,6 +1,6 @@
 ﻿namespace PoemBeautifierContract
 {
-    public interface PoemFilteringCompleted
+    public interface ProceedOriginalPoem
     {
         string UserId { get; }
         string CorrId { get; }

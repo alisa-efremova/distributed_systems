@@ -10,7 +10,7 @@ using PoemBeautifierContract;
 
 namespace PoemStats
 {
-    class StartMessageConsumer : IConsumer<PoemFilteringStarted>
+    class StartMessageConsumer : IConsumer<ProceedOriginalPoem>
     {
         private readonly Stats _stats;
 
@@ -19,7 +19,7 @@ namespace PoemStats
             _stats = new Stats();
         }
 
-        public async Task Consume(ConsumeContext<PoemFilteringStarted> context)
+        public async Task Consume(ConsumeContext<ProceedOriginalPoem> context)
         {
             int linesCount = context.Message.Poem.Length;
             _stats.SaveSourceLinesCount(linesCount, context.Message.CorrId);

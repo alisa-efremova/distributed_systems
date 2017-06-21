@@ -8,9 +8,9 @@ using PoemBeautifierContract;
 
 namespace VowelCalc
 {
-    public class MessageConsumer : IConsumer<PoemFilteringStarted>
+    public class MessageConsumer : IConsumer<ProceedOriginalPoem>
     {
-        public async Task Consume(ConsumeContext<PoemFilteringStarted> context)
+        public async Task Consume(ConsumeContext<ProceedOriginalPoem> context)
         {
             Uri sendEndpointUri = new Uri(string.Concat(ConfigurationManager.AppSettings["RabbitMQHost"], ConfigurationManager.AppSettings["ConsonantCalcQueueName"]));
             var endpoint = await context.GetSendEndpoint(sendEndpointUri);

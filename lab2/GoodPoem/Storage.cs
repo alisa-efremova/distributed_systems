@@ -17,7 +17,7 @@ namespace GoodPoem
         CacheItemPolicy _cachePolicy;
         static readonly TimeSpan _cacheSlidingExpiration = TimeSpan.FromMinutes(5);
 
-        const int _retryCount = 5;
+        const int _retryCount = 3;
         const int _initialRetryTimeoutSec = 2;
 
         const int _maxFailureCountBeforeBreaking = 3;
@@ -31,9 +31,6 @@ namespace GoodPoem
 
         public void Save(string userId, string corrId, string value)
         {
-            Console.WriteLine("Save to cache");
-            MemoryCache.Default.AddOrGetExisting(corrId, value, _cachePolicy);
-
             GetRetryPolicy().Execute(() =>
             {
                 Breaker.Execute(() =>
@@ -42,6 +39,9 @@ namespace GoodPoem
                     _dataAccess.GetConnection(userId, corrId).GetDatabase().StringSet(corrId, value);
                 });
             });
+
+            Console.WriteLine("Save to cache");
+            MemoryCache.Default.AddOrGetExisting(corrId, value, _cachePolicy);
         }
 
         public string Get(string corrId)

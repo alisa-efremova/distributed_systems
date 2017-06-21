@@ -7,7 +7,7 @@ using PoemBeautifierContract;
 
 namespace GoodPoem
 {
-    public class MessageConsumer : IConsumer<PoemFilteringCompleted>
+    public class MessageConsumer : IConsumer<ProceedBeautifiedPoem>
     {
         private readonly Storage _storage;
 
@@ -16,7 +16,7 @@ namespace GoodPoem
             _storage = new Storage();
         }
 
-        public async Task Consume(ConsumeContext<PoemFilteringCompleted> context)
+        public async Task Consume(ConsumeContext<ProceedBeautifiedPoem> context)
         {
             Console.WriteLine("Poem filtering completed");
             bool isPoemSaved = false;

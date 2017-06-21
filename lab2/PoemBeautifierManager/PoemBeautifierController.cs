@@ -31,25 +31,34 @@ namespace PoemBeautifierManager
             _busControl.Stop();
         }
 
-        public class ResourceQuery
+        public class PostParams
         {
             public string CorrId { get; set; }
             public string UserId { get; set; }
             public string Poem { get; set; }
         }
 
-        public IHttpActionResult Post([FromBody]ResourceQuery postParams)
+        public IHttpActionResult Post([FromBody]PostParams postParams)
         {
             Task.Run(() => HandlePostParams(postParams));
             return StatusCode(System.Net.HttpStatusCode.OK);
         }
 
-        private async void HandlePostParams(ResourceQuery postParams)
+        private async void HandlePostParams(PostParams postParams)
         {
             var poemLines = postParams.Poem.Split('\n');
-            await _busControl.Publish<PoemFilteringStarted>(new {
-                UserId = postParams.UserId,
-                CorrId = postParams.CorrId,
+            await SendMessage(ConfigurationManager.AppSettings["VowelCalcQueueName"], postParams.UserId, postParams.CorrId, poemLines);
+            await SendMessage(ConfigurationManager.AppSettings["PoemStatsQueueName"], postParams.UserId, postParams.CorrId, poemLines);
+        }
+
+        private async Task SendMessage(string queue, string userId, string corrId, string[] poemLines)
+        {
+            Uri sendEndpointUri = new Uri(string.Concat(ConfigurationManager.AppSettings["RabbitMQHost"], queue));
+            var endpoint = await _busControl.GetSendEndpoint(sendEndpointUri);
+            await endpoint.Send<ProceedOriginalPoem>(new
+            {
+                UserId = userId,
+                CorrId = corrId,
                 Poem = poemLines
             });
         }
